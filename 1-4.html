@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>1-3</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        *{list-style: none;}
+        li span{width:25%;float:left;}
+    </style>
+</head>
+<body>
+<h3>以列表的方式来显示绑定的多项数据</h3>
+<div ng-controller="stuController">
+    <ul>
+        <li ng-repeat="stu in data">
+            <span>{{stu.name}}</span>
+            <span>{{stu.sex}}</span>
+            <span>{{stu.age}}</span>
+            <span>{{stu.score}}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    function stuController($scope) {
+        $scope.data = [
+            {name:'张明明',sex:'男',age:24,score:95},
+            {name:'李清思',sex:'女',age:27,score:92},
+            {name:'刘小华',sex:'男',age:28,score:87},
+            {name:'陈忠明',sex:'男',age:23,score:82}
+        ]
+    }
+</script>
+</body>
+</html>
