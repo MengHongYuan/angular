@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>2-2</title>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_2">
+    <input type="text" ng-model="text1">
+    <button on-click="show()">显示</button>
+</div>
+<script>
+    function c2_2($window,$scope){
+        $scope.text1 = '';
+        $scope.show = function(){
+            $window.alert("您输入的内容:"+$scope.text1);
+        }
+    }
+</script>
+</body>
+</html>

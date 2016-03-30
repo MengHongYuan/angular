@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <title>1-3</title>
     <script src="js/angular.min.js"></script>
-    <style>
-        *{list-style: none;}
-        li span{width:25%;float:left;}
-    </style>
 </head>
 <body>
 <div ng-controller="c2_1">
@@ -17,11 +13,11 @@
     <br><br>
     执行Angular表达式: <br>
     <input type="text" ng-model="expr2">
-    <button ng-click="$eval(expr2)">计算</button>
+    <span ng-bind="$eval(expr2)"></span>
 </div>
 <script>
     function c2_1($scope){
-        $scope.expr1 = 20;
+        $scope.expr1 = 30;
         $scope.expr2 = '20+2|number:0';
         $scope.textExpr1 = function(expr){
             var newv = parseInt(expr)+1;
