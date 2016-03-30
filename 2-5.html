@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="a2_5">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3</title>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_5">
+    <span>{{span_show()}}</span>
+</div>
+<script>
+    var a2_5 = angular.module('a2_5',[]);
+    a2_5.controller('c2_5',['$scope',function($scope){
+        $scope.text = 'Angular Js!';
+        $scope.span_show = function(){
+            $scope.text = "欢迎来到Angular的世界!";
+            return $scope.text;
+        }
+    }]);
+</script>
+</body>
+</html>

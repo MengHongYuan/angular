@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="a2_5">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3</title>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="c2_5">
+    <span>{{text}}</span>
+    <input type="text" ng-model="text">
+    <button ng-click="click_show()">点击</button>
+</div>
+<script>
+    var a2_5 = angular.module('a2_5',[]);
+    a2_5.controller('c2_5',['$scope',function($scope){
+        $scope.text = 'Angular Js!';
+        $scope.click_show = function(){
+            if($scope.text=='Angular Js!'){
+                $scope.text = "欢迎来到Angular的世界!";
+            }else{
+                $scope.text = 'Angular Js!';
+            }
+        }
+    }]);
+</script>
+</body>
+</html>
