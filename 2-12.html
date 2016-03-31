@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="a2_12">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        *{list-style: none;font-size: 12px;line-height: 30px;margin:0;padding:0;}
+        li{
+            overflow:hidden;border-bottom:1px solid #dcdcdc;
+        }
+        li span{
+            width:20%;float: left;display:flex;text-align: center;
+        }
+        div{
+            margin: 8px;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="c2_12">
+    <div ng-show={{isShow}}>孟鸿远</div>
+    <div ng-hide={{isHide}}>menghongyuan@qq.com</div>
+    <ul ng-switch on={{switch}}>
+        <li ng-switch-when="1">孟鸿远</li>
+        <li ng-switch-when="2">menghongyuan@qq.com</li>
+        <li ng-switch-default>更多...</li>
+    </ul>
+</div>
+<script>
+    var a2_12 = angular.module('a2_12',[]);
+    a2_12.controller('c2_12',['$scope',function($scope){
+        $scope.isShow = true;
+        $scope.isHide = false;
+        $scope.switch = 3;
+    }])
+</script>
+</body>
+</html>
