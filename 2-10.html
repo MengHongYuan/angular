@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="a2_9">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        *{list-style: none;font-size: 12px;line-height: 30px;margin:0;padding:0;}
+        li{
+            overflow:hidden;border-bottom:1px solid #dcdcdc;
+        }
+        li span{
+            width:20%;float: left;display:flex;text-align: center;
+        }
+        .even{
+            color:#ff0000;
+        }
+        .odd{
+            color:#0026ff;
+        }
+        .bgColor{background:#f2f2f2;}
+        .focus{
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<script type="text/ng-template" id="tplbase">
+    <ul>
+        <li ng-class="'bgColor'">
+            <span>序号</span>
+            <span>姓名</span>
+            <span>邮箱</span>
+            <span>是否首条</span>
+            <span>是否尾条</span>
+        </li>
+        <li ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="person in data" ng-click="li_click($index)" ng-class="{bgColor:$index==bgColor}">
+            <span>{{$index+1}}</span>
+            <span>{{person.name}}</span>
+            <span>{{person.email}}</span>
+            <span>{{$first?'是':'否'}}</span>
+            <span>{{$last?'是':'否'}}</span>
+        </li>
+    </ul>
+</script>
+<div ng-include src="'tplbase'" ng-controller="c2_9"></div>
+<script>
+    var a2_9 = angular.module('a2_9',[]);
+    a2_9.controller('c2_9',['$scope',function($scope){
+        $scope.li_click = function(i){
+            $scope.bgColor = i;
+        };
+        $scope.data=[
+            {name:'孟鸿远',email:'menghongyuan@qq.com'},
+            {name:'胡舒',email:'hushu2008520@qq.com'},
+            {name:'孟梓逸',email:'mengzhiyi@qq.com'}
+        ]
+    }])
+</script>
+</body>
+</html>

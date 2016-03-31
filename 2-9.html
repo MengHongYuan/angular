@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="a2_9">
+<head>
+    <meta charset="UTF-8">
+    <title>2-3</title>
+    <script src="js/angular.min.js"></script>
+</head>
+<body>
+<script type="text/ng-template" id="tplbase">
+    <ul>
+        <li ng-repeat="person in data"><span>姓名:{{person.name}}</span><span>邮箱:{{person.email}}</span></li>
+    </ul>
+</script>
+<div ng-include src="'tplbase'" ng-controller="c2_9"></div>
+<script>
+    var a2_9 = angular.module('a2_9',[]);
+    a2_9.controller('c2_9',['$scope',function($scope){
+        $scope.name = '孟鸿远';
+        $scope.email = 'menghongyuan@qq.com';
+        $scope.data=[
+            {name:'孟鸿远',email:'menghongyuan@qq.com'},
+            {name:'胡舒',email:'hushu2008520@qq.com'},
+            {name:'孟梓逸',email:'mengzhiyi@qq.com'}
+        ]
+    }])
+</script>
+</body>
+</html>
