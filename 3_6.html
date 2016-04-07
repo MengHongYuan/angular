@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="a3_6">
+<head>
+    <meta charset="UTF-8">
+    <title>3_6</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        *{list-style: none;font-size: 12px;line-height: 20px;padding:0;margin: 0;}
+        input{border:1px solid #dcdcdc;padding:3px;}
+        li{overflow: hidden;}
+        li span{width: 20%;line-height: 30px;float: left;display: block;text-align: center;cursor:pointer;}
+        li.bold{background: #f2f2f2;font-weight: bold;}
+    </style>
+</head>
+<body>
+<div ng-controller="c3_6">
+    <div>
+        <input type="text" ng-model="name" placeholder="请输入姓名">
+    </div>
+    <div>累计变化次数:{{count}}</div>
+</div>
+<script>
+    var a3_6 = angular.module('a3_6',[]);
+    a3_6.controller('c3_6',['$scope',function($scope){
+        $scope.name='';
+        $scope.count=0;
+        $scope.$watch('name',function(){
+            $scope.count++;
+        })
+    }]);
+</script>
+</body>
+</html>

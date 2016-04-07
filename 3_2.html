@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="a3_2">
+<head>
+    <meta charset="UTF-8">
+    <title>2-15</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        *{list-style: none;font-size: 12px;line-height: 20px;padding:0;margin: 0;}
+        li{overflow: hidden;}
+        li span{width: 20%;line-height: 30px;float: left;display: block;text-align: center;}
+        li.bold{background: #f2f2f2;font-weight: bold;}
+    </style>
+</head>
+<body>
+<div ng-controller="c3_2">
+    <ul>
+        <li ng-class="{{bold}}">
+            <span>序号</span>
+            <span>姓名</span>
+            <span>性别</span>
+            <span>年龄</span>
+            <span>分数</span>
+        </li>
+        <li ng-repeat="stu in data | filter:findScore">
+            <span>{{$index+1}}</span>
+            <span>{{stu.name}}</span>
+            <span>{{stu.sex}}</span>
+            <span>{{stu.age}}</span>
+            <span>{{stu.score}}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    var a3_2 = angular.module('a3_2',[]);
+    a3_2.controller('c3_2',['$scope',function($scope){
+        $scope.bold='bold';
+        $scope.data = [
+            {name:'张明明',sex:'男',age:'29',score:'92'},
+            {name:'李清思',sex:'女',age:'25',score:'97'},
+            {name:'孟鸿远',sex:'男',age:'28',score:'95'},
+            {name:'李明',sex:'男',age:'30',score:'87'},
+            {name:'张思绪',sex:'女',age:'27',score:'90'}
+        ];
+        $scope.findScore = function(e){
+            return e.score>=90 && e.score<=95;
+        }
+    }]);
+</script>
+</body>
+</html>

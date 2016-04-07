@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html ng-app="a3_8">
+<head>
+    <meta charset="UTF-8">
+    <title>3_8</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+    </style>
+</head>
+<body>
+<div ng-controller="c3_8_school">
+    <ul ng-controller="c3_8_class_1">
+        <li ng-class="{{school}}">{{s_name}}{{c_name}}</li>
+        <li ng-class="bold">
+            <span>序号</span>
+            <span ng-click="title='name';desc=!desc">姓名</span>
+            <span ng-click="title='sex';desc=!desc">性别</span>
+            <span ng-click="title='english';desc=!desc">英语</span>
+            <span ng-click="title='maths';desc=!desc">数学</span>
+        </li>
+        <li ng-repeat="stu in data | orderBy:title:desc">
+            <span>{{$index+1}}</span>
+            <span>{{stu.name}}</span>
+            <span>{{stu.sex}}</span>
+            <span>{{stu.english}}</span>
+            <span>{{stu.maths}}</span>
+        </li>
+    </ul>
+    <ul ng-controller="c3_8_class_2">
+        <li ng-class="{{school}}">{{s_name}}{{c_name}}</li>
+        <li ng-class="bold">
+            <span>序号</span>
+            <span ng-click="title='name';desc=!desc">姓名</span>
+            <span ng-click="title='sex';desc=!desc">性别</span>
+            <span ng-click="title='english';desc=!desc">英语</span>
+            <span ng-click="title='maths';desc=!desc">数学</span>
+        </li>
+        <li ng-repeat="stu in data | orderBy:title:desc">
+            <span>{{$index+1}}</span>
+            <span>{{stu.name}}</span>
+            <span>{{stu.sex}}</span>
+            <span>{{stu.english}}</span>
+            <span>{{stu.maths}}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    var a3_8 = angular.module('a3_8',[]);
+    a3_8.controller('c3_8_school',['$scope',function($scope){
+        $scope.bold='bold';
+        $scope.title='';
+        $scope.s_name='湖南省邵东县第四中学';
+        $scope.school='school';
+    }]);
+    a3_8.controller('c3_8_class_1',['$scope',function($scope){
+        $scope.c_name = '高三204班';
+        $scope.data=[
+            {name:'孟鸿远',sex:'男',english:86,maths:92},
+            {name:'罗超',sex:'男',english:78,maths:88},
+            {name:'李违违',sex:'女',english:84,maths:78}
+        ]
+    }]);
+    a3_8.controller('c3_8_class_2',['$scope',function($scope){
+        $scope.c_name = '高三200班';
+        $scope.data=[
+            {name:'王叶汝',sex:'男',english:66,maths:82},
+            {name:'罗丹',sex:'女',english:98,maths:80},
+            {name:'罗红丹',sex:'男',english:64,maths:78}
+        ]
+    }]);
+</script>
+</body>
+</html>
