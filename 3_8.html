@@ -18,7 +18,7 @@
 <body>
 <div ng-controller="c3_8_school">
     <ul ng-controller="c3_8_class_1">
-        <li ng-class="{{school}}">{{s_name}}{{c_name}}</li>
+        <li ng-class="{{school}}">{{s_name}}{{c_name}} <input type="text" ng-model="search" placeholder="请输入姓名"></li>
         <li ng-class="bold">
             <span>序号</span>
             <span ng-click="title='name';desc=!desc">姓名</span>
@@ -26,7 +26,7 @@
             <span ng-click="title='english';desc=!desc">英语</span>
             <span ng-click="title='maths';desc=!desc">数学</span>
         </li>
-        <li ng-repeat="stu in data | orderBy:title:desc">
+        <li ng-repeat="stu in data | orderBy:title:desc | filter:{name:search}">
             <span>{{$index+1}}</span>
             <span>{{stu.name}}</span>
             <span>{{stu.sex}}</span>
@@ -35,7 +35,7 @@
         </li>
     </ul>
     <ul ng-controller="c3_8_class_2">
-        <li ng-class="{{school}}">{{s_name}}{{c_name}}</li>
+        <li ng-class="{{school}}">{{s_name}}{{c_name}} <input type="text" ng-model="search" placeholder="请输入姓名"></li>
         <li ng-class="bold">
             <span>序号</span>
             <span ng-click="title='name';desc=!desc">姓名</span>
@@ -43,7 +43,7 @@
             <span ng-click="title='english';desc=!desc">英语</span>
             <span ng-click="title='maths';desc=!desc">数学</span>
         </li>
-        <li ng-repeat="stu in data | orderBy:title:desc">
+        <li ng-repeat="stu in data | orderBy:title:desc | filter:{name:search}">
             <span>{{$index+1}}</span>
             <span>{{stu.name}}</span>
             <span>{{stu.sex}}</span>
@@ -56,9 +56,8 @@
     var a3_8 = angular.module('a3_8',[]);
     a3_8.controller('c3_8_school',['$scope',function($scope){
         $scope.bold='bold';
-        $scope.title='';
-        $scope.s_name='湖南省邵东县第四中学';
         $scope.school='school';
+        $scope.s_name='湖南省邵东县第四中学';
     }]);
     a3_8.controller('c3_8_class_1',['$scope',function($scope){
         $scope.c_name = '高三204班';
