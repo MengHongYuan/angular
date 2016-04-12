@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="a3_9">
+<head>
+    <meta charset="UTF-8">
+    <title>3_9</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+    </style>
+</head>
+<body>
+<div ng-controller="c3_9_p">
+    <div ng-controller="c3_9_s">
+        <button ng-click="to_parent()">向父级传播</button>
+        <button ng-click="to_child()">向子级传播</button>
+        <div ng-controller="c3_9_c"></div>
+    </div>
+    <div ng-controller="c3_9_b"></div>
+</div>
+<script>
+    var a3_9 = angular.module('a3_9',[]);
+    a3_9.controller('c3_9_s',['$scope',function($scope){
+        $scope.to_parent = function(){
+            $scope.$emit('event_1','事件来源于子级');
+        };
+        $scope.to_child = function(){
+            $scope.$emit('event_2','事件来源于父级');
+        }
+    }]);
+    a3_9.controller('c3_9_p',function($scope){
+        $scope.$on('event_1',function(event,data){
+            console.log('在父级中监听',data);
+        });
+        $scope.$on('event_2',function(event,data){
+            console.log('在父级中监听',data);
+        })
+    });
+    a3_9.controller('c3_9_c',function($scope){
+        $scope.$on('event_1',function(event,data){
+            console.log('在子级中监听',data);
+        });
+        $scope.$on('event_2',function(event,data){
+            console.log('在子级中监听',data);
+        })
+    });
+    a3_9.controller('c3_9_b',function($scope){
+        $scope.$on('event_1',function(event,data){
+            console.log('在同级中监听',data);
+        });
+        $scope.$on('event_2',function(event,data){
+            console.log('在同级中监听',data);
+        })
+    });
+</script>
+</body>
+</html>

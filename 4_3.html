@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="a4_3">
+<head>
+    <meta charset="UTF-8">
+    <title>4_3</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="c4_3">
+    <input id="btnAlert" type="button" value="弹出对话框" ng-click="onClick('我是一个弹出对话框')">
+</div>
+<script>
+    var a4_3=angular.module('a4_3',[]);
+    a4_3.factory('$show',function($window){
+        return {
+            show:function(text){
+                $window.alert(text);
+            }
+        }
+    });
+    var c4_3=function($scope,$show){
+        $scope.onClick=function(msg){
+            $show.show(msg);
+        }
+    };
+    a4_3.controller('c4_3',c4_3);
+</script>
+</body>
+</html>
