@@ -2,7 +2,7 @@
  * Created by menghy on 2016/4/13.
  */
 var register = angular.module('register',[]);
-register.controller('UserCtrl',function($scope){
+register.controller('UserCtrl',function($scope,$http){
     $scope.user = {
         icon:'icon.jpeg',
         showIcon:true,
@@ -24,6 +24,10 @@ register.controller('UserCtrl',function($scope){
         return isOk;
     };
     $scope.register = function(user){
-        console.log(user);
-    }
+        $http.post('',user).success(function(resp){
+            if(resp.success){
+                alert('成功!');
+            }
+        })
+    };
 });
