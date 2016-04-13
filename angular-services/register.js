@@ -24,6 +24,7 @@ register.controller('UserCtrl',function($scope,$http){
         return isOk;
     };
     $scope.register = function(user){
+        console.log(user);
         $http.post('',user).success(function(resp){
             if(resp.success){
                 alert('成功!');
