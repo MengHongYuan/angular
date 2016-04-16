@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="a5_7">
+<head>
+    <meta charset="UTF-8">
+    <title>5_7</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-repeat="stu in students" class="show">
+    <a href="#view/{{stu.stuId}}">{{stu.name}}</a>
+</div>
+</body>
+</html>

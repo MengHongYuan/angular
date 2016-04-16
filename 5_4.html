@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="a5_4">
+<head>
+    <meta charset="UTF-8">
+    <title>5_4</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="c5_4">
+    <div class="show">
+        <input type="text" ng-model="a">
+        <span>{{type}}</span>
+        <input type="text" ng-model="b">
+        <span>=</span>
+        <span>{{result}}</span>
+    </div>
+    <div class="show">
+        <button type="button" ng-click="change(1)">加法</button>
+        <button type="button" ng-click="change(2)">减法</button>
+        <button type="button" ng-click="change(3)">乘法</button>
+        <button type="button" ng-click="change(4)">除法</button>
+    </div>
+</div>
+<script>
+    var a5_4 = angular.module('a5_4',[]);
+    a5_4.controller('c5_4',function($scope){
+        $scope.type='+';
+        $scope.change=function(t){
+            switch (t){
+                case 1:
+                    $scope.type='+';
+                    $scope.result = parseInt($scope.a)+parseInt($scope.b);
+                    break;
+                case 2:
+                    $scope.type='-';
+                    $scope.result = parseInt($scope.a)-parseInt($scope.b);
+                    break;
+                case 3:
+                    $scope.type='*';
+                    $scope.result = parseInt($scope.a)*parseInt($scope.b);
+                    break;
+                case 4:
+                    $scope.type='/';
+                    $scope.result = parseInt($scope.a)/parseInt($scope.b);
+                    break;
+            }
+        }
+    })
+</script>
+</body>
+</html>

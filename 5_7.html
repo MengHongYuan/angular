@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="a5_7">
+<head>
+    <meta charset="UTF-8">
+    <title>5_7</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-view></div>
+<script>
+    var a5_7 = angular.module('a5_7',['ngRoute']);
+    a5_7.controller('c5_7_1',function($scope){
+        $scope.students = students;
+    });
+    a5_7.controller('c5_7_2',function($scope,$routeParams){
+        for(var i=0,len=students.length;i<len;i++){
+            if(students[i].stuId==$routeParams.id){
+                $scope.student = students[i];
+                break;
+            }
+        }
+    });
+    a5_7.config(['$routeProvider',function($routeProvider){
+        $routeProvider
+                .when('/',{
+                    controller:'c5_7_1',
+                    templateUrl:'5_7_1.html'
+                })
+                .when('/view/:id',{
+                    controller:'c5_7_2',
+                    templateUrl:'5_7_2.html',
+                    publicAccess:true
+                })
+                .otherwise({
+                    redirectTo:'/'
+                });
+    }]);
+    var students = [
+        {stuId:1000,name:'张明明',sex:'女',score:70},
+        {stuId:1001,name:'李清思',sex:'女',score:82},
+        {stuId:1002,name:'孟鸿远',sex:'男',score:85},
+        {stuId:1003,name:'李明',sex:'男',score:67},
+        {stuId:1004,name:'王常建',sex:'男',score:77}
+    ]
+</script>
+<script type="text/ng-template" id="5_7_1.html">
+    <div ng-repeat="stu in students" class="show">
+        <a href="#view/{{stu.stuId}}">{{stu.name}}</a>
+    </div>
+</script>
+<script type="text/ng-template" id="5_7_2.html">
+    <div class="show">
+        <div>学号:{{student.stuId}}</div>
+        <div>姓名:{{student.name}}</div>
+        <div>性别:{{student.sex}}</div>
+        <div>分数:{{student.score}}</div>
+    </div>
+</script>
+</body>
+</html>
