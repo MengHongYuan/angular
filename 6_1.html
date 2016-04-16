@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="a6_1">
+<head>
+    <meta charset="UTF-8">
+    <title>6_1</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="c6_1">
+    <div class="show">当前地址是:{{url}}</div>
+    <button ng-click="showUrl()">显示当前地址</button>
+</div>
+<script>
+    var a6_1=angular.module('a6_1',[]);
+    a6_1.controller('c6_1',function($scope,$location){
+        $scope.showUrl = function(){
+            $scope.url=$location.absUrl();
+        };
+    })
+</script>
+</body>
+</html>
