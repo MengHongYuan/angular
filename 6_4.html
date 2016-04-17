@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>6_4</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <div class="show">{{name}}</div>
+    <div class="show">{{email}}</div>
+    <div class="show">{{title}}</div>
+    <button ng-click="say()">主题</button>
+</div>
+<script>
+    var app = angular.module('app',[]);
+    app.service('$student',function(){
+        this.name = '孟鸿远';
+        this.email = 'menghongyuan@qq.com';
+        this.say = function(){
+            return 'Hello Angular!';
+        }
+    });
+    app.controller('myCtrl',function($scope,$student){
+        $scope.name=$student.name;
+        $scope.email=$student.email;
+        $scope.say=function(){
+            $scope.title=$student.say();
+        }
+    })
+</script>
+</body>
+</html>

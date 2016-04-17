@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>6_7</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <div class="show">编号:{{stu.code}}</div>
+    <div class="show">姓名:{{stu.name}}</div>
+    <div class="show">分数:{{stu.score}}</div>
+    <button ng-click="reset()">重置</button>
+</div>
+<div ng-controller="myCtrl2">
+    <div class="show">编号:{{stu.code}}</div>
+    <div class="show">姓名:{{stu.name}}</div>
+    <div class="show">分数:{{stu.score}}</div>
+</div>
+<script>
+    var app = angular.module('app',[]);
+    function student(json){
+        angular.extend(this,json);
+        this.reset=function(){
+            this.code=1000;
+            this.name='张三';
+            this.score=10;
+        }
+    };
+    student.create=function(){
+        return new student({
+            code:'1001',
+            name:'李四',
+            score:'90'
+        })
+    };
+    app.factory('$student',function(){
+        return {
+            create: student.create
+        }
+    }).controller('myCtrl',function($scope,$student){
+        $scope.stu=$student.create();
+        $scope.reset=function(){
+            $scope.stu.reset();
+        }
+    }).controller('myCtrl2',function($scope,$student){
+        $scope.stu=$student.create();
+    })
+</script>
+</body>
+</html>

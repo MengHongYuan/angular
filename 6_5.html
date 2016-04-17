@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>6_4</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;width:300px;margin: 20px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <div class="show">图书ISBN号:{{BOOK}}</div>
+    <div class="show">美元兑换:{{USD}}</div>
+</div>
+<script>
+    var app = angular.module('app',[]);
+    app.constant('$ISBN',{
+        BOOK:"9764765"
+    }).value('$RATE',{
+        USD:614.28
+    }).controller('myCtrl',function($scope,$ISBN,$RATE){
+        var n=600;
+        angular.extend($RATE,{USD:n});
+        $scope.BOOK=$ISBN.BOOK;
+        $scope.USD=$RATE.USD;
+    })
+</script>
+</body>
+</html>
