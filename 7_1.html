@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_1</title>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+    </style>
+</head>
+<body>
+<div class="frame">
+    <ul id="stuInfo"></ul>
+</div>
+<script>
+    (function(){
+        var xhr = null;
+        if(window.ActiveXObject){
+            xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        }else if(window.XMLHttpRequest){
+            xhr=new XMLHttpRequest();
+        }
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState==4){
+                if(xhr.status==200){
+                    var html='';
+                    var data=eval("("+xhr.responseText+")");
+                    for(var i=0,len=data.length;i<len;i++){
+                        html+='<li><span>'+data[i].Code+'</span>';
+                        html+='<span>'+data[i].Name+'</span>';
+                        html+='<span>'+data[i].Score+'</span></li>';
+                    }
+                    document.getElementById('stuInfo').innerHTML=html;
+                }
+            }
+        };
+        xhr.open("GET","php/data.php",true);
+        xhr.send();
+    })()
+</script>
+</body>
+</html>

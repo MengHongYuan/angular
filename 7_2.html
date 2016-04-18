@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_2</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+        .show{background: #f2f2f2;line-height: 30px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl" class="frame">
+    <div class="show">
+        <div class="tips">POST返回的结果:{{result}}</div>
+        <button ng-click="onClick()">提交</button>
+    </div>
+</div>
+<script>
+    angular.module('app',[]).config(function($httpProvider){
+        $httpProvider.defaults.transformRequest = function(obj){
+            var arrstr = [];
+            for(var p in obj){
+                arrstr.push(encodeURIComponent(p)+'='+encodeURIComponent(obj[p]));
+            }
+            return arrstr.join("&");
+        };
+        $httpProvider.defaults.headers.post={
+            "Content-Type":"application/x-www-form-urlencoded"
+        }
+    }).controller('myCtrl',function($scope,$http){
+        var postData = {name:'admin1'};
+        $scope.onClick=function(){
+            $http.post('php/proving.php',postData).success(function(data,status,header,config){
+                $scope.result=data;
+            })
+        }
+    });
+</script>
+</body>
+</html>
