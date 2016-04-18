@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_2</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+        .show{background: #f2f2f2;line-height: 30px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl" class="frame">
+    <div class="show">
+        <input type="text" ng-model="num">
+        <button ng-click="onCLick()">提交</button>
+        <div>{{result}}</div>
+    </div>
+</div>
+<script>
+    angular.module('app',[]).controller('myCtrl',function($scope,$http){
+        $scope.num='';
+        $scope.result='';
+        $scope.onCLick=function(){
+            $http({
+                method:'GET',
+                url:'php/chk.php',
+                params:{
+                    n:$scope.num
+                },
+                cache:true
+            }).success(function(data,status,header,config){
+                $scope.result=data;
+            }).error(function(data,status,header,config){
+                $scope.result='加载出错!';
+            });
+        }
+    });
+</script>
+</body>
+</html>
