@@ -19,3 +19,7 @@
 #evnet.stopPropagation()   防止事件进行冒泡操作的函数
 #evnet.preventDefault()    阻止代码事件的发生
 #event.defaultPrevented    当执行了preventDefault()方法时,该属性值为true,否则为false
+
+
+
+#angular-route.min.js上传失败
