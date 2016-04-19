@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_2</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+        .show{background: #f2f2f2;line-height: 30px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl" class="frame">
+    <div class="show">
+        <input type="text" ng-model="cname">
+        <button ng-click="cset()">设置</button>
+        <button ng-click="cshow()">显示</button>
+        <button ng-click="cdel()">删除</button>
+    </div>
+    <div>缓存值为:{{cvalue}}</div>
+</div>
+<script>
+    var app=angular.module('app',[]);
+    app.service('$cache',function($cacheFactory){
+        return $cacheFactory('test');
+    });
+    app.controller('myCtrl',function($scope,$cache){
+        $scope.cset=function(){
+            $cache.put('mytest',$scope.cname);
+        };
+        $scope.cshow=function(){
+            var tcache=$cache.get('mytest');
+            $scope.cvalue=tcache?tcache:'空值';
+        };
+        $scope.cdel=function(){
+            $cache.remove("mytest");
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_2</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+        .show{background: #f2f2f2;line-height: 30px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl" class="frame">
+    <div class="show">
+        <div>接收的内容:{{result}}</div>
+        <button ng-click="refresh()">刷新</button>
+    </div>
+</div>
+<script>
+    var app=angular.module('app',[]);
+    app.service('$cache',function($cacheFactory){
+        return $cacheFactory('mytest',{capcity:3});
+    });
+    app.controller('myCtrl',function($scope,$http,$cache){
+        var url='php/chk.php';
+        $http({
+            method:'GET',
+            url:url,
+            cache:true
+        }).success(function(data,status,headers,config){
+            $scope.result=data;
+            $cache.put('C',data);
+        });
+        $scope.refresh=function(){
+            var _C=$cache.get('C');
+            $scope.result=(_C) ? _C+'来源缓存':'刷新失败!';
+        }
+    })
+</script>
+</body>
+</html>

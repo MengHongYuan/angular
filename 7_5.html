@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_2</title>
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        .frame{width:320px;}
+        .frame ul{list-style: none;padding:0;margin: 0;}
+        .frame ul li{background: #f1f1f1;padding:8px;border-bottom: 1px solid #dcdcdc;overflow: hidden;}
+        .frame ul li span{width:33%;line-height: 22px;float:left;display:block;}
+        .show{background: #f2f2f2;line-height: 30px;}
+    </style>
+</head>
+<body>
+<div ng-controller="myCtrl" class="frame">
+    <div class="show">
+        <div>接收内容是:{{result}}</div>
+        <div>缓存内容是:{{cache}}</div>
+    </div>
+</div>
+<script>
+    var app=angular.module('app',[]);
+    app.controller('myCtrl',function($scope,$http,$cacheFactory){
+        var url='php/chk.php';
+        var cache=$cacheFactory.get("$http");
+        $http({
+            method:'GET',
+            url:url,
+            cache:true
+        }).success(function(data,status,headers,config){
+            $scope.result=data;
+            var arrResp=cache.get(url);
+            $scope.cache=arrResp[0]+'_'+arrResp[1];
+        })
+    })
+</script>
+</body>
+</html>
