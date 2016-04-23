@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>7_7</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:33%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;margin: 20px;}
+        .line{border-top:1px solid #dcdcdc;padding:5px;}
+    </style>
+</head>
+<body>
+<div class="show" ng-controller="myCtrl">
+    <div>{{r0}}</div>
+    <div>{{r1}}</div>
+    <div>{{r2}}</div>
+    <button ng-click="click()">开始</button>
+</div>
+<script>
+    var url="php/sele.php?action=:act",app=angular.module('app',['ngResource']);
+    app.config(function($httpProvider){
+        $httpProvider.defaults.transformRequest=function(obj){
+            var arrStr=[];
+            for(var p in obj){
+                arrStr.push(encodeURIComponent(p)+'='+encodeURIComponent(obj[p]));
+            }
+            return arrStr.join('&');
+        };
+        $httpProvider.defaults.headers.post={
+            'Content-type':'application/x-www-form-urlencoded'
+        }
+    });
+    app.factory('custom',['$resource',function($resource){
+        return $resource(url,{act:'search'},{
+            update:{
+                method:'POST',
+                params:{
+                    update:true
+                },
+                isArray:false
+            }
+        })
+    }]);
+    app.controller('myCtrl',function($scope,custom){
+        $scope.click=function(){
+            custom.get({id:'1010'},function(resp0){
+                $scope.r0=(resp0[0]=='1')?'查找成功!':'查找失败!';
+                resp0.key='1011';
+                resp0.$update({act:'update'},function(resp1){
+                    $scope.r1=(resp1[0]=='1')?'更新成功!':'更新失败!';
+                    resp1.key='1012';
+                    resp1.$save({act:'save'},function(resp2){
+                        $scope.r2=(resp2[0]=='1')?'保存成功!':'保存失败!';
+                    });
+                })
+            })
+        }
+    })
+</script>
+</body>
+</html>

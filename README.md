@@ -21,5 +21,7 @@
 #event.defaultPrevented    当执行了preventDefault()方法时,该属性值为true,否则为false
 
 
-
+#$route与$resource 服务本身是一个可选性的模块,因此它们并没有包含在angular中,如果需要使用模块,需在页面单独引入
+#angular-route.min.js和angular-resource.min.js
+#注入方法   angular.module('app',['ngRoute','ngResource']);
 #angular-route.min.js上传失败
