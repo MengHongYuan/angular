@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cart</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:1200px;margin: 10px auto;padding:0;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;background: #eee;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:20%;float:left;display: block;text-align: center;}
+        ul li.selected{background: red;}
+        .show{border:1px solid #dcdcdc;padding:5px;margin: 20px;}
+        .line{border-top:1px solid #dcdcdc;padding:5px;}
+    </style>
+</head>
+<body ng-app="cart">
+<div ng-controller="cartCtrl">
+    <ul>
+        <li ng-repeat="item in items | orderBy:'-price'" ng-click="selectRow($index)" ng-class="{selected:$index==sRow}">
+            <span>{{item.proId}}</span>
+            <span>{{item.name}}</span>
+            <span>{{item.price | currency}}</span>
+            <span><input type="text" ng-model="item.stock"></span>
+            <span>{{item.price*item.stock | currency}}</span>
+        </li>
+        <li>
+            <span>共计:{{totalCart() | currency}}</span>
+            <span>优惠:{{bill.discount | currency}}</span>
+            <span>合计:{{subtotal() | currency}}</span>
+        </li>
+    </ul>
+</div>
+<script>
+    var proItems=[
+        {proId:'1001',name:'mackbook pro',price:'9288.00',stock:'1'},
+        {proId:'1002',name:'iphone6s 灰色 16G',price:'5288.00',stock:'1'},
+        {proId:'1003',name:'ipad wifi版白色32G',price:'3288.00',stock:'1'}
+    ];
+    var cart = angular.module('cart',[]);
+    cart.controller('cartCtrl',function($scope){
+        $scope.bill={};
+        $scope.items=proItems;
+        $scope.totalCart=function(){
+            var total=0;
+            for(var i=0,len=$scope.items.length;i<len;i++){
+                total=total+$scope.items[i].price*$scope.items[i].stock;
+            }
+            return total;
+        };
+        $scope.subtotal=function(){
+            return $scope.totalCart() - $scope.bill.discount;
+        };
+        function calculateDiscount(newValue){
+            $scope.bill.discount = newValue > 20000?100:0;
+        }
+        $scope.$watch($scope.totalCart,calculateDiscount);
+    })
+</script>
+</body>
+</html>

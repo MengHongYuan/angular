@@ -8,12 +8,12 @@
     <style>
         body{font-size: 12px;}
         ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
-        ul .ng-scope{background: #eee;}
-        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;background: #eee;}
         ul .bold{font-weight: bold;}
         ul .bold span{cursor: pointer;}
         ul .school{text-align: right;}
         ul li span{width:20%;float:left;display: block;text-align: center;}
+        ul li.selected{background: red;}
         .show{border:1px solid #dcdcdc;padding:5px;margin: 20px;}
         .line{border-top:1px solid #dcdcdc;padding:5px;}
     </style>
@@ -22,9 +22,9 @@
 <div ng-view></div>
 <script>
     var proItems=[
-        {proId:'1001',name:'mackbook pro',price:'9288.00',stock:'100'},
-        {proId:'1002',name:'iphone6s 灰色 16G',price:'5288.00',stock:'100'},
-        {proId:'1003',name:'ipad wifi版白色32G',price:'3288.00',stock:'100'}
+        {proId:'1001',name:'mackbook pro',price:'9288.00',stock:'99'},
+        {proId:'1002',name:'iphone6s 灰色 16G',price:'5288.00',stock:'56'},
+        {proId:'1003',name:'ipad wifi版白色32G',price:'3288.00',stock:'78'}
     ];
     var cart = angular.module('cart',['ngRoute']);
     cart.controller('cartCtrl',function ($scope,$routeParams) {
@@ -32,12 +32,18 @@
         $scope.remove=function(index){
             $scope.items.splice(index,1);
         };
+        $scope.selectRow=function(row){
+            $scope.sRow=row;
+        }
     });
     cart.controller('editPro',function($scope,$routeParams){
         for(var i=0,len=proItems.length;i<len;i++){
             if(proItems[i].proId==$routeParams.id){
                 $scope.item=proItems[i];
             }
+        }
+        $scope.save=function(){
+            alert(213);
         }
     });
     cart.config(['$routeProvider',function($routeProvider){
@@ -64,7 +70,7 @@
                 <span>库存</span>
                 <span>操作</span>
             </li>
-            <li ng-repeat="item in items">
+            <li ng-repeat="item in items | orderBy:'-stock'" ng-click="selectRow($index)" ng-class="{selected:$index==sRow}">
                 <span>{{item.proId}}</span>
                 <span>{{item.name}}</span>
                 <span>{{item.price}}</span>
@@ -80,9 +86,10 @@
 <script type="text/ng-template" id="detail.html">
     <div class="show" ng-controller="editPro">
         <div>产品id:{{item.proId}}</div>
-        <div>产品名称:{{item.name}}</div>
-        <div>价格:{{item.price}}</div>
-        <div>库存:{{item.stock}}</div>
+        <div>产品名称:<input type="text" ng-model="item.name"></div>
+        <div>价格:<input type="text" ng-model="item.price"></div>
+        <div>库存:<input type="text" ng-model="item.stock"></div>
+        <div><a href="#/" ng-click="save()">保存</a></div>
     </div>
 </script>
 </body>
