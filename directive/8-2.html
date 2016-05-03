@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-app="app">
+<div>
+    <ts-tplfile></ts-tplfile>
+    <ts-tplscript></ts-tplscript>
+    <ts-tplcache></ts-tplcache>
+</div>
+<script type="text/ng-template" id="tpl">
+    <h2>模板内容来源于script元素</h2>
+</script>
+<script>
+    var app=angular.module('app',[]);
+    app.run(function($templateCache){
+        $templateCache.put('cache','<h2>模板内容来源于cache元素</h2>')
+    });
+    app.directive('tsTplfile',function(){
+        return {
+            restrict:'AE',
+            replace:true,
+            templateUrl:'tpl/tpl.html'
+        }
+    });
+    app.directive('tsTplscript',function(){
+        return {
+            restrict:'AE',
+            replace:true,
+            templateUrl:'tpl'
+        }
+    });
+    app.directive('tsTplcache',function(){
+        return {
+            restrict:'AE',
+            replace:true,
+            templateUrl:'cache'
+        }
+    });
+</script>
+</body>
+</html>

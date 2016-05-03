@@ -27,6 +27,21 @@
         {proId:'1003',name:'ipad wifi版白色32G',price:'3288.00',stock:'78'}
     ];
     var cart = angular.module('cart',['ngRoute']);
+    cart.directive('save',function(){
+        return {
+            restrict:'AE',
+            replace:true,
+            template:'<a>保存</a>',
+            link:function(scope,elem,attrs){
+                attrs:{
+                    href:'www.baidu.com'
+                };
+                elem.bind('click',function(){
+                    alert(123);
+                });
+            }
+        }
+    });
     cart.controller('cartCtrl',function ($scope,$routeParams) {
         $scope.items=proItems;
         $scope.remove=function(index){
@@ -41,9 +56,6 @@
             if(proItems[i].proId==$routeParams.id){
                 $scope.item=proItems[i];
             }
-        }
-        $scope.save=function(){
-            alert(213);
         }
     });
     cart.config(['$routeProvider',function($routeProvider){
@@ -89,7 +101,7 @@
         <div>产品名称:<input type="text" ng-model="item.name"></div>
         <div>价格:<input type="text" ng-model="item.price"></div>
         <div>库存:<input type="text" ng-model="item.stock"></div>
-        <div><a href="#/" ng-click="save()">保存</a></div>
+        <data-save href></data-save>
     </div>
 </script>
 </body>

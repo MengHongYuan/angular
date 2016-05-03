@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <style>
+        .frame{background: #f2f2f2;}
+    </style>
+    <script src="../js/angular.min.js"></script>
+    <script type="text/ng-template" id="tpl">
+        <div>
+            <span>姓名:{{textName}}</span>
+            <span>年龄:{{textAge}}</span>
+        </div>
+        <button ng-transclude></button>
+    </script>
+</head>
+<body>
+<div class="frame" ng-controller="myCtrl">
+    姓名: <input type="text" ng-model="text_name" placeholder="请输入姓名"><br/>
+    年龄: <input type="text" ng-model="text_age" placeholder="请输入年龄"><br/>
+    <div>{{tips}}</div>
+    <ts-json a-attr="{{text_name}}" b-attr="text_age" reset="reSet()">重置</ts-json>
+</div>
+<script>
+    var myModule = angular.module('myModule',[]);
+    myModule.controller('myCtrl',function($scope){
+        $scope.reSet=function(){
+            $scope.tips="姓名和年龄重置成功!";
+        }
+    });
+    myModule.directive('tsJson',function(){
+        return {
+            restrict:'EAC',
+            templateUrl:'tpl',
+            transclude:true,
+            scope:{
+                textName:'@aAttr',
+                textAge:'=bAttr',
+                reSet:'&reset'
+            },
+            link:function(scope,iEle,iAttrs){
+                iEle.bind('click',function(){
+                    scope.$apply(function(){
+                        scope.textName='张三';
+                        scope.textAge='26';
+                        scope.reSet();
+                    });
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

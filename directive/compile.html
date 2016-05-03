@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <ts-a>
+        <ts-b>{{tips}}</ts-b>
+    </ts-a>
+</div>
+<script>
+    var myModule = angular.module('myModule',[]);
+    myModule.controller('myCtrl',function($scope){
+        $scope.tips='跟踪compile执行过程';
+    });
+    myModule.directive('tsA',function(){
+        return {
+            restrict:'AE',
+            compile:function(tEle,tAttrs,trans){
+                console.log('正在编译A指令');
+                return {
+                    pre:function(scope,iEle,iAttrs){
+                        console.log('正在编译A指令中的pre函数');
+                    },
+                    post:function(scope,iEle,iAttrs){
+                        console.log('正在编译A指令中的post函数');
+                    }
+                }
+            }
+        }
+    });
+    myModule.directive('tsB',function(){
+        return {
+            restrict:'AEC',
+            compile:function(tEle,tAttrs,trans){
+                console.log('正在编译B指令');
+                return {
+                    pre:function(scope,iEle,iAttrs){
+                        console.log('正在编译B指令中的pre函数');
+                    },
+                    post:function(scope,iEle,iAttrs){
+                        console.log('正在编译B指令中的post函数');
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>showHide</title>
+    <script src="angular.js"></script>
+    <style>
+        .iframe{border:1px solid #dcdcdc;padding:10px;}
+    </style>
+</head>
+<body ng-app="app">
+  <div ng-controller="myCtrl">
+      <button ng-click="showBtn()">{{title}}</button>
+      <div class="iframe" ng-show="showHide">显示内容</div>
+  </div>
+<script>
+    var app=angular.module('app',[]);
+    app.controller('myCtrl',function($scope){
+        $scope.title='详情';
+        $scope.showHide=false;
+        $scope.showBtn=function(){
+            $scope.title=$scope.showHide?'详情':'关闭';
+            $scope.showHide = !$scope.showHide;
+        }
+    })
+</script>
+</body>
+</html>

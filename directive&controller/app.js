@@ -9,13 +9,31 @@ app.controller('AppCtrl',function($scope){
     };
     $scope.delData = function(){
         alert('正在删除数据...');
+    };
+    $scope.items=[
+        {news:'正在加载数据'},
+        {news:'正在加载数据'},
+        {news:'正在加载数据'},
+        {news:'正在加载数据'}
+    ];
+});
+
+app.directive('list',function(){
+    return {
+        restrict:'AE',
+        template:'<li ng-repeat="item in items">{{item.news}}</li>',
+        link:function(scope,element,attrs){
+            
+        }
     }
 });
 
 app.directive('enter',function(){
-    return function(scope,element,attrs){
-        element.bind('click',function(){
-            scope.$apply(attrs.enter);
-        });
+    return {
+        link:function(scope,element,attrs){
+            element.bind('click',function(){
+                scope.$apply(attrs.enter);
+            });
+        }
     }
 });

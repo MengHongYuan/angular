@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-app="app">
+<div>
+    <ts-tplscript></ts-tplscript>
+    <div>{{content}}</div>
+</div>
+<script type="text/ng-template" id="tpl">
+    <button>点击按钮</button>
+</script>
+<script>
+    var app=angular.module('app',[]);
+    app.directive('tsTplscript',function(){
+        return {
+            restrict:'AE',
+            templateUrl:'tpl',
+            replace:true,
+            link:function(scope,element,attrs){
+                element.bind('click',function(){
+                    scope.$apply(function(){
+                        scope.content='这是点击后的内容!'
+                    });
+                    this.disabled=true;
+                    alert(this.innerHTML);
+                });
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>city</title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="myCtrl">
+<div class="panel">
+    <div class="row">
+        <div class="col-md-4">
+            <select class="form-control" ng-model="vm.country" ng-options="country.label for country in vm.countries">
+                <option value="">&#45;&#45; 请选择国家 &#45;&#45;</option>
+            </select>
+        </div>
+        <div class="col-md-4" ng-if="vm.country.provinces">
+            <select class="form-control" ng-model="vm.province"
+                    ng-options="province.label for province in vm.country.provinces">
+                <option value="">&#45;&#45; 请选择省份/州 &#45;&#45;</option>
+            </select>
+        </div>
+        <div class="col-md-4" ng-if="vm.province.cities">
+            <select class="form-control" ng-model="vm.city" ng-options="city.label for city in vm.province.cities">
+                <option value="">&#45;&#45; 请选择城市/县区 &#45;&#45;</option>
+            </select>
+        </div>
+    </div>
+    <div>您选择的是：{{vm.country.label}} - {{vm.province.label}} - {{vm.city.label}}</div>
+    <div class="alert alert-info">
+        这里使用ng-if指令来达到下一级有数据才显示下一级的效果
+    </div>
+</div>
+<script src="city.js"></script>
+<script src="city-data.js"></script>
+</body>
+</html>
