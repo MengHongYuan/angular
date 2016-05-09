@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <style>
+        .frame{background: #f2f2f2;}
+    </style>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+<div class="frame">
+    <ts-parent>
+        <div>{{ptip}}</div>
+        <ts-child>
+            <div>{{ctip}}</div>
+            <button ng-click="click()">换位</button>
+        </ts-child>
+    </ts-parent>
+</div>
+<script>
+    var app = angular.module('myModule',[]);
+    app.directive('tsParent',function(){
+        return {
+            restrict:'EAC',
+            controller:function($scope,$compile,$http){
+                this.addChild=function(c){
+                    $scope.ptip="今天天气不错!";
+                    $scope.click=function(){
+                        $scope.tmp=$scope.ptip;
+                        $scope.ptip=c.ctip;
+                        c.ctip=$scope.tmp;
+                    }
+                }
+            }
+        }
+    });
+    app.directive('tsChild',function(){
+        return {
+            restrict:'EAC',
+            require:'^tsParent',
+            link:function(scope,iEle,iAttrs,ctrl){
+                scope.ctip='气温正好18度.';
+                ctrl.addChild(scope);
+            }
+        }
+    })
+</script>
+</body>
+</html>

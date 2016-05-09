@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        *{font-size: 13px;list-style: none;padding:0;margin:0;}
+        .firam{background: #f2f2f2;padding:10px;margin:auto;width:800px;}
+        .firam li{overflow:hidden;line-height:36px;border-bottom:1px solid #dcdcdc;}
+        .firam li span{width:25%;float:left;text-align: center;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl" id="control">
+      <button ng-click="abcupdate()">更新</button>
+      <ul>
+          <li>
+              <span>序号</span>
+              <span>姓名</span>
+              <span>分数</span>
+          </li>
+          <li ng-repeat="item in items track by item.name">
+              <span>{{item.id}}</span>
+              <span>{{item.name}}</span>
+              <span>{{item.score}}</span>
+          </li>
+      </ul>
+  </div>
+  <script>
+        angular.module('app',[]).controller('myCtrl',function($scope){
+            $scope.items=[
+                {id:1010,name:'zhangliqiu',score:20},
+                {id:1030,name:'lisanxia',score:90},
+                {id:1050,name:'huzhengqing',score:50},
+                {id:1020,name:'liusanfu',score:80},
+                {id:1040,name:'wenzhonghua',score:60}
+            ];
+            console.log($scope.items);
+            $scope.abcupdate=function(){
+                var result=[
+                    {id:1060,name:'abc',score:20},
+                    {id:1070,name:'def',score:90},
+                    {id:1080,name:'ghi',score:50},
+                    {id:1090,name:'jkl',score:80},
+                    {id:1100,name:'mno',score:60}
+                ];
+                $scope.items=result;
+                console.log($scope.items);
+            }
+        });
+  </script>
+</body>
+</html>

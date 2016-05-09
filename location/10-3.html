@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        *{font-size: 13px;list-style: none;padding:0;margin:0;}
+        .firam{background: #f2f2f2;padding:10px;margin:auto;width:800px;}
+        .firam li{overflow:hidden;line-height:36px;border-bottom:1px solid #dcdcdc;}
+        .firam li span{width:25%;float:left;text-align: center;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" id="control">
+      <ul ng-controller="myCtrl">
+          <li>
+              <span>序号</span>
+              <span>姓名</span>
+              <span>分数</span>
+              <span>操作</span>
+          </li>
+          <li ng-repeat="item in items | filter:fscore">
+              <span>{{item.id}}</span>
+              <span>{{item.name}}</span>
+              <span>{{item.score}}</span>
+              <span ng-click="remove(item,$index)">删除</span>
+          </li>
+      </ul>
+  </div>
+  <script>
+        angular.module('app',[]).controller('myCtrl',function($scope){
+            $scope.items=getStu();
+            $scope.fscore=function(e){
+                return e.score>=20;
+            };
+            $scope.remove=function(item,index){
+                console.log(item);
+                var item2=$scope.items[index];
+                $scope.items.splice(index,1);
+                console.log(item2);
+            }
+        });
+      function getStu(){
+          return [
+              {id:1010,name:'zhangliqiu',score:20},
+              {id:1020,name:'lisanxia',score:90},
+              {id:1030,name:'huzhengqing',score:50},
+              {id:1040,name:'liusanfu',score:80},
+              {id:1050,name:'wenzhonghua',score:60}
+          ]
+      }
+  </script>
+</body>
+</html>

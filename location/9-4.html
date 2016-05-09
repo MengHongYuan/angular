@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl">
+      <div>当前状态1:{{tip_a}}</div>
+      <div>当前URL:{{current}}</div>
+      <hr/>
+      <div>当前状态2:{{tip_b}}</div>
+      <div>上页URL:{{previous}}</div>
+  </div>
+  <script>
+      var app=angular.module('app',[]);
+      app.controller('myCtrl',function($rootScope,$window,$scope,$location,$log){
+          $rootScope.$on('$locationChangeStart',function(evt,current,previous){
+              $scope.tip_a='URL地址即将发生改变!';
+              var yn=$window.confirm('确定真的要离开吗?');
+              if(yn){
+                  $location.path('/change');
+              }
+              evt.preventDefault();
+              $scope.tip_b='用户取消了URL的改变!';
+              $scope.current=current;
+              $scope.previous=previous;
+          });
+          $rootScope.$on('$locationChangeSuccess',function(evt,current,previous){
+              $scope.tip_b='URL地址改变操作完成!';
+              $scope.current=current;
+              $scope.previous=previous;
+          });
+      });
+  </script>
+</body>
+</html>

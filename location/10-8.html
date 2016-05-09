@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        *{font-size: 13px;list-style: none;padding:0;margin:0;}
+        .firam{background: #f2f2f2;padding:10px;margin:auto;width:800px;}
+        .firam li{overflow:hidden;line-height:36px;border-bottom:1px solid #dcdcdc;}
+        .firam li span{width:25%;float:left;text-align: center;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div ng-controller="myCtrl as o" class="firam">
+      <div ng-click="o.click('爸级',$event)">
+          在按钮的单击事件中,阻止冒泡 <br>
+          <input type="checkbox" ng-click="o.change($event)" ng-model="o.stopPropagation">是否阻止冒泡 <br><br>
+          <button ng-click="o.click('按钮',$event)">点击</button>
+      </div>
+  </div>
+  <script>
+      angular.module('app',[]).controller('myCtrl',function($scope){
+          var obj=this;
+          obj.click=function(name,$event){
+              console.log(name+'被触发');
+              if(obj.stopPropagation){
+                  $event.stopPropagation();
+              }
+          };
+          obj.change=function($event){
+              $event.stopPropagation();
+          };
+          return obj;
+      })
+  </script>
+</body>
+</html>

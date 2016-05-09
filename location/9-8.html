@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl">
+      <div><input type="text" id="Text1" ng-model="locationPath"></div>
+      <div>{{locationPath}}</div>
+  </div>
+  <script>
+      var app=angular.module('app',['ngRoute']);
+      app.controller('myCtrl',function($scope,$location){
+          $scope.$watch('locationPath',function(path){
+              $location.path(path);
+          });
+          $scope.$watch('$location.path()',function(path){
+              $scope.locationPath=path;
+          });
+      });
+  </script>
+</body>
+</html>

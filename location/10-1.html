@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl" id="control">
+      <button ng-click="add()">添加元素</button>
+      <button ng-click="del()">删除元素</button>
+  </div>
+  <script>
+        angular.module('app',[]).controller('myCtrl',function($scope,$compile){
+            $scope.hello='hello,angular!';
+            $scope.log=function(){
+                console.log('这是动态添加的方法!');
+            };
+            var html='<div ng-click="log()">{{hello}}</div>';
+            var template=angular.element(html);
+            var newHtml=$compile(template)($scope);
+            $scope.add=function(){
+                angular.element(document.getElementById('control')).append(template);
+            };
+            $scope.del=function(){
+                if(newHtml){
+                    newHtml.remove();
+                }
+            }
+        })
+  </script>
+</body>
+</html>

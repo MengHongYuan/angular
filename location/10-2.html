@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl" id="control">
+      <p>{{tip}}</p>
+  </div>
+  <script>
+        angular.module('app',[]).controller('myCtrl',function($scope){
+            $scope.tip=0;
+            var t=1;
+            setInterval(function(){
+                $scope.$apply(function(){
+                    $scope.tip=t++;
+                });
+            },1000);
+        })
+  </script>
+</body>
+</html>

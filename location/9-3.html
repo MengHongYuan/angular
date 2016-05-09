@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl">
+      <div>当前URL:{{current}}</div>
+      <div>上页URL:{{previous}}</div>
+  </div>
+  <script>
+      var app=angular.module('app',[]);
+      app.controller('myCtrl',function($rootScope,$window,$scope,$location){
+          $rootScope.$on('$locationChangeStart',function(evt,current,previous){
+              $scope.current=current;
+              $scope.previous=previous;
+          });
+      });
+  </script>
+</body>
+</html>

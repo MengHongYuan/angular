@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location</title>
+    <style>
+        .firam{background: #f2f2f2;padding:10px;}
+    </style>
+    <script src="../js/angular.js"></script>
+</head>
+<body ng-app="app">
+  <div class="firam" ng-controller="myCtrl">
+      <div>{{absUrl}}</div>
+      <div>{{protocol}}</div>
+      <div>{{host}}</div>
+      <div>{{port}}</div>
+  </div>
+  <script>
+      var app=angular.module('app',[]);
+      app.controller('myCtrl',function($scope,$location){
+          $scope.absUrl=$location.absUrl();
+          $scope.protocol=$location.protocol();
+          $scope.host=$location.host();
+          $scope.port=$location.port();
+      });
+  </script>
+</body>
+</html>
