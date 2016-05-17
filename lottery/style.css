@@ -1,0 +1,39 @@
+body{font-size: 13px;}
+a:link{text-decoration: none;}
+a:visited{text-decoration: none;}
+#lottery{
+    margin:0 auto;
+    border:1px solid #dcdcdc;
+    width:306px;text-align: center;
+}
+#lottery ul{
+    list-style: none;padding:0;margin:20px 0;text-align: left;
+}
+#lottery ul li{
+    overflow: hidden;
+}
+#lottery ul li span{
+    float: left;width:33.33%;text-align: center;
+}
+#lottery button{
+    margin:50px 0;width:100px;height:100px;
+}
+#lottery .item{
+    width:100px;height:100px;border:1px solid #dcdcdc;
+    text-align: center;line-height: 100px;float: left;
+}
+#lottery .active{
+    background: #f2f2f2;border:1px solid #dcdcdc;
+}
+#lottery .reset{
+    float: left;
+}
+#lottery .edit{
+    float: right;
+}
+#lottery img{vertical-align: bottom;}
+#lottery .top{
+    margin: 10px 10px 0 10px;
+}
+#lottery .show{display: block;}
+#lottery .hide{display: none;}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>抽奖</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="../js/angular.js"></script>
+    <script src="../js/angular-route.min.js"></script>
+</head>
+<body ng-app="lottery">
+<div ng-controller="ctrl_lottery" id="lottery">
+    <div id="step1">
+        <button ng-click="start()">开始</button>
+    </div>
+    <div id="step2" class="hide">
+        <div ng-repeat="item in items" ng-class="{'active':item.status}" id="{{item.id}}" class="item">
+            {{item.name}}
+        </div>
+    </div>
+    <div id="step3" class="hide top">
+        <a href="javascript:void(0)" ng-click="reset()" class="reset">重新开始</a>
+        <a href="javascript:void(0)" ng-click="edit()" class="edit">修改奖品</a>
+        <button class="active">{{result}}</button>
+    </div>
+    <div id="step4" class="hide top">
+        <a href="javascript:void(0)" ng-click="return()" class="reset">返回</a>
+        <form ng-submit="add()">
+            <input type="text" ng-model="name" required placeholder="名称">
+            <input type="submit" class="btn" value="添加">
+        </form>
+        <ul>
+            <li ng-repeat="item in items">
+                <span>{{item.id}}</span>
+                <span>{{item.name}}</span>
+                <span><a href="javascript:void(0)" ng-click="del(item.id)">删除</a></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
