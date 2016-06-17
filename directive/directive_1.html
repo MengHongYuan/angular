@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myModule">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <style>
+        .frame{background: #f2f2f2;}
+    </style>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+<div class="frame">
+    <directive-life count="1"></directive-life>
+</div>
+<script>
+    var app = angular.module('myModule',[]);
+    app.directive('directiveLife',function($log){
+        $log.info('Injecting function directiveLife');
+        return {
+            restrict:'EA',
+            transclude:true,
+            replace:true,
+            template:'<div><h2>count:{{count}}</h2><p ng-transclude></p></div>',
+            scope:{
+                count:'='
+            },
+            compile:function(elm,iAttrs){
+                $log.info('compile','count value from attribute:'+iAttrs.count);
+                return {
+                    pre:function(scope,elm,iAttrs){
+                        $log.info('pre-link','count value from attribute:'+iAttrs.count,'count value from scope:'+scope.count);
+                    },
+                    post:function(scope,elm,iAttrs){
+                        $log.info('post-link','count value from attribute:'+iAttrs.count,'count value form scope:'+scope.count);
+                    }
+                }
+            },
+            controller:function($scope){
+                $log.info('controller','count value from controller:'+$scope.count);
+            }
+        }
+    });
+    app.controller('myCtrl',function(){
+        var vm=this;
+        return vm;
+    })
+</script>
+</body>
+</html>

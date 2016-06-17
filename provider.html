@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>provider</title>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-resource.js"></script>
+    <style>
+        body{font-size: 12px;}
+        ul{list-style: none;width:800px;margin: 10px auto;padding:0;}
+        ul .ng-scope{background: #eee;}
+        ul li{padding:5px 0;overflow: hidden;border-bottom:1px solid #dcdcdc;line-height: 30px;}
+        ul .bold{font-weight: bold;}
+        ul .bold span{cursor: pointer;}
+        ul .school{text-align: right;}
+        ul li span{width:33%;float:left;display: block;text-align: center;}
+        .show{border:1px solid #dcdcdc;padding:5px;margin: 20px;}
+        .line{border-top:1px solid #dcdcdc;padding:5px;}
+    </style>
+</head>
+<body>
+<div class="show" ng-controller="myCtrl">
+    {{msg}}
+    {{msged}}
+</div>
+<script>
+    var app=angular.module('app',[]);
+    app.provider('greeting',function(){
+        var _name='world';
+        this.setName=function(name){
+            _name=name;
+        };
+        this.$get=function(){
+            return "Hello"+_name;
+        }
+    });
+
+    app.controller('myCtrl',function($scope,greet,greeted){
+        $scope.msg=greet.sayMhy('menghongyuan');
+        $scope.msged=greeted;
+    });
+
+    app.config(function(greetingProvider){
+        greetingProvider.setName('wolf');
+    });
+
+    app.service('greet',function(){
+        this.sayMhy=function(name){
+            return "Hello "+name;
+        }
+    });
+
+    app.factory('greeted',function(){
+        return 1+1;
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+/**
+ * Created by menghy on 16/6/17.
+ */
+var controllerModule=angular.module('exampleApp.Controllers',[]);
+controllerModule.controller('dayCtrl',function($scope,days){
+    $scope.day=days.today;
+});
+controllerModule.controller('tomorrowCtrl',function($scope,days){
+    $scope.day=days.tomorrow;
+});
