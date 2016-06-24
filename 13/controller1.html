@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../js/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp',[]);
+        app.controller('defaultCtrl',function($scope){
+            $scope.city='London';
+            $scope.cities=['London','BeiJin','Paris'];
+            $scope.getCountry=function(){
+                switch ($scope.city){
+                    case 'London':
+                        return "UK";
+                    case 'BeiJin':
+                        return "CH";
+                    break;
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="panel" id="todoPanel" ng-controller="defaultCtrl">
+    <div class="well">
+        <label>Select a City:</label>
+        <select ng-options="city for city in cities" ng-model="city"></select>
+    </div>
+    <div class="well">
+        <p>The city is:{{city}}</p>
+        <p>The country is:{{getCountry()||'unknow'}}</p>
+    </div>
+</div>
+</body>
+</html>
