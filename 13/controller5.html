@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../js/angular.min.js"></script>
+    <script src="controller5.js"></script>
+    <style>
+        button[type=button],input{outline: none;}
+    </style>
+</head>
+<body>
+<div class="well" ng-controller="firstChildCtrl">
+    <h4>First Child Controller</h4>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="reverseText()">Reverse</button>
+        </span>
+        <input type="text" class="form-control" ng-model="dataValue">
+    </div>
+</div>
+<div class="well" ng-controller="secondChildCtrl">
+    <h4>Second Child Controller</h4>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="changeCase()">Case</button>
+        </span>
+        <input type="text" class="form-control" ng-model="dataValue">
+    </div>
+</div>
+</body>
+</html>
