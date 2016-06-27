@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>hello,Angular</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-    <script src="../js/angular.min.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
     <script>
         var app=angular.module('myApp',[]);
         app.controller('defaultCtrl',function($scope){
@@ -19,14 +19,33 @@
                 {name:'Trout',category:'Fish',price:12.93,expiry:4},
                 {name:'Beer',category:'Drinks',price:2.99,expiry:365},
                 {name:'Wine',category:'Drinks',price:8.99,expiry:365}
-            ]
+            ];
+            $scope.limitVal="5";
+            $scope.limitRange=[];
+            for(var i=1;i<=$scope.products.length;i++){
+                $scope.limitRange.push(i.toString());
+            }
+            $scope.getExpiryDate=function(days){
+                var now = new Date();
+                return now.setDate(now.getDate()+days);
+            };
+            $scope.myCustomSorter=function(item){
+                return item.expiry<5?0:item.price;
+            }
         });
     </script>
+    <script src="customFilters.js"></script>
 </head>
 <body ng-controller="defaultCtrl">
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3>Products <span class="label label-primary">{{products.length}}</span></h3>
+    </div>
+    <div class="panel-body">
+        Limit:
+        <select ng-model="limitVal">
+            <option ng-repeat="item in limitRange">{{item}}</option>
+        </select>
     </div>
     <div class="panel-body">
         <table class="table table-bordered table-responsive">
@@ -39,9 +58,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="pro in products">
-                    <td>{{pro.name}}</td>
-                    <td>{{pro.category}}</td>
+                <tr ng-repeat="pro in products | take:2:5">
+                    <td>{{pro.name | labelCase}}</td>
+                    <td>{{pro.category | labelCase:true}}</td>
                     <td>{{pro.expiry}}</td>
                     <td class="text-right">{{pro.price | currency:"￥"}}</td>
                 </tr>

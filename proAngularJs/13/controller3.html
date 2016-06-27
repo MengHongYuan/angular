@@ -3,17 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>hello,Angular</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-    <script src="../js/angular.min.js"></script>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
     <script>
         var app = angular.module('myApp',[]);
-        app.controller('simpleCtrl',function($scope){
+        app.service('ZipCode',function($rootScope){
+            return {
+                setZipCode:function(type,zip){
+                    this[type]=zip;
+                    $rootScope.$broadcast('zipCodeUpdated',{type:type,zipCode:zip});
+                }
+            }
+        });
+        app.controller('simpleCtrl',function($scope,ZipCode){
+            $scope.$on('zipCodeUpdated',function(event,args){
+                $scope[args.type]=args.zipCode;
+            });
+
             $scope.setAddress=function(type,zip){
+                ZipCode.setZipCode(type,zip);
                 console.log("Type:"+type+" "+zip);
             };
             $scope.copyAddress=function(){
-                $scope.shippingZip = $scope.billingZip;
+                $scope.zip = $scope.billingZip;
             }
         });
     </script>
