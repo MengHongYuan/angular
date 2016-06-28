@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+    <script type="text/template" id="scopeTemplate">
+        <div class="panel-body">
+            <p>Data Value: <input type="text" ng-model="local"></p>
+        </div>
+    </script>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.directive('scopeDemo',function(){
+            return {
+                template:function(){
+                    return angular.element(document.querySelector('#scopeTemplate')).html();
+                },
+                scope:{
+                    local:'=nameprop'
+                }
+            }
+        }).controller('scopeCtrl',function($scope){
+            $scope.data={name:'admin'};
+            $scope.city='London';
+        });
+
+    </script>
+</head>
+<body ng-controller="scopeCtrl">
+<div class="panel panel-default" >
+    <div class="panel-body">
+        Direct Binding: <input type="text" ng-model="data.name">
+    </div>
+    <div class="panel-body" scope-demo nameprop="data.name"></div>
+</div>
+</body>
+</html>
