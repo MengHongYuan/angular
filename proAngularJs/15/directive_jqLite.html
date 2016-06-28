@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+    <style>
+        .bold{font-weight: bold;}
+    </style>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.directive('demoDirective',function(){
+            return {
+                link:function(scope,element,attrs){
+                    for(var i=0;i<scope.name.length;i++){
+                        element.append(angular.element('<li>').text(scope.name[i]));
+                        var items=element.children();
+                        if(items.eq(i).text()=='Apples'){
+                            items.eq(i).css('color','green');
+                        }
+                        var btn = element.find('button');
+                        btn.on('click',function(){
+                            element.find('li').toggleClass('bold');
+                        });
+                    }
+                },
+                restrict:'A'
+            }
+        });
+        app.controller('defaultCtrl',function($scope){
+            $scope.name=['Apples','Oranges','Pears'];
+        })
+
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>Products</h3></div>
+    <div class="panel-body">
+        <ol demo-directive>
+            <button class="btn btn-default">Click me!</button>
+        </ol>
+    </div>
+</div>
+</body>
+</html>
