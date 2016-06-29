@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+    <script type="text/template" id="template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>This is the panel</h4>
+            </div>
+            <div class="panel-body" ng-transclude></div>
+        </div>
+    </script>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.directive('panel',function(){
+            return {
+                template:function(){
+                    return angular.element(document.querySelector('#template')).html();
+                },
+                scope:true,
+                restrict:'EA',
+                transclude:true
+            }
+        }).controller('scopeCtrl',function($scope){
+            $scope.dataSource='controller';
+        });
+
+    </script>
+</head>
+<body ng-controller="scopeCtrl">
+<panel>The data value comes form the:{{dataSource}}</panel>
+</body>
+</html>

@@ -8,7 +8,7 @@
     <script src="../../js/angular.min.js"></script>
     <script type="text/template" id="scopeTemplate">
         <div class="panel-body">
-            <p>Name:{{local}},City:{{cityFn()}}</p>
+            <p>Name:{{local}},City:{{cityFn({nameVal:local})}}</p>
         </div>
     </script>
     <script>
@@ -40,7 +40,7 @@
     <div class="panel-body">
         Direct Binding: <input type="text" ng-model="data.name">
     </div>
-    <div class="panel-body" scope-demo nameprop="data.name" city="getCity(data.name)"></div>
+    <div class="panel-body" scope-demo nameprop="data.name" city="getCity(nameVal)"></div>
 </div>
 </body>
 </html>
