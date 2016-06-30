@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <style>
+        .error{color:red;font-weight: bold;}
+    </style>
+    <script src="../../js/angular.min.js"></script>
+    <script type="text/template" id="triTemplate">
+        <div class="well">
+            <div class="btn-group">
+                <button class="btn btn-default">Yes</button>
+                <button class="btn btn-default">No</button>
+                <button class="btn btn-default">Not Sure</button>
+            </div>
+            <span class="error" ng-show="myForm.decision.$error.confidence">You need to be sure</span>
+        </div>
+    </script>
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('defaultCtrl',function($scope){
+            $scope.dataValue="Not Sure";
+        });
+        app.directive('triButton',function(){
+            return {
+                restrict:'EA',
+                replace:true,
+                require:'ngModel',
+                template:document.querySelector('#triTemplate').innerHTML,
+                link:function(scope,element,attrs,ctrl){
+
+                    var validateParser=function(value){
+                        var valid=(value=='Yes'||value=='No');
+                        ctrl.$setViewValue('confidence',valid);
+                        return valid?value:underfined;
+                    };
+                    ctrl.$parsers.push(validateParser);
+                    ctrl.$formatters.push(function(value){
+                        return value=='Huh?'?'Not Sure':value;
+                    });
+                    element.on('click',function(event){
+                        setSelected(event.target.innerText);
+                        scope.$apply(function(){
+                            ctrl.$setViewValue(event.target.innerText);
+                        })
+                    });
+                    var setSelected=function(value){
+                        var buttons=element.find('button');
+                        buttons.removeClass('btn-primary');
+                        for(var i=0;i<buttons.length;i++){
+                            if(buttons.eq(i).text()==value){
+                                buttons.eq(i).addClass('btn-primary');
+                            }
+                        }
+                    };
+                    ctrl.$render=function(){
+                        validateParser(ctrl.$viewValue);
+                        setSelected(ctrl.$viewValue || "Not Sure");
+                    }
+                }
+            }
+        })
+    </script>
+</head>
+<body ng-controller="defaultCtrl" class="panel panel-body">
+  <form name="myForm" novalidate>
+      <div>
+          <tri-button ng-model="dataValue" name="decision"></tri-button>
+      </div>
+  </form>
+  <div class="well">
+      value:{{dataValue}}
+      <select ng-model="dataValue">
+          <option>Yes</option>
+          <option>No</option>
+          <option>Not Sure</option>
+          <option>Huh?</option>
+      </select>
+  </div>
+</body>
+</html>

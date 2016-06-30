@@ -11,6 +11,9 @@
         <td>{{item.price | currency:'人民币:'}}</td>
         <td><input type="text" ng-model="item.quantity"></td>
     </script>
+    <script type="text/template" id="resetTemplate">
+        <td colspan="3"><button class="btn btn-default" ng-click="reset()">Reset</button></td>
+    </script>
     <script>
         var app=angular.module('myApp',[]);
         app.controller('defaultCtrl',function ($scope) {
@@ -48,9 +51,25 @@
                     this.updateTotal=function(){
                         var total=0;
                         for(var i=0;i<$scope.data.length;i++){
-                            total=$scope.data[i].quantity+total;
+                            total+=$scope.data[i].quantity;
                         }
                         $scope.value=total;
+                    }
+                }
+            }
+        });
+        app.directive('resetTotals',function(){
+            return {
+                scope:{data:'=productData',propName:'@propertyName'},
+                template:document.querySelector('#resetTemplate').innerHTML,
+                require:'^productTable',
+                link:function(scope,element,attrs,ctrl){
+                    scope.reset=function(){
+                        var total=0;
+                        for(var i=0;i<scope.data.length;i++){
+                            scope.data[i][scope.propName]=0;
+                        }
+                        ctrl.updateTotal();
                     }
                 }
             }
@@ -70,8 +89,9 @@
             <tr ng-repeat="item in products" product-item></tr>
             <tr>
                 <th>Total:</th>
-                <td colspan="2">{{value}}</td>
+                <td colspan="2">{{totalValue}}</td>
             </tr>
+            <tr reset-totals product-data="products" property-name="quantity"></tr>
         </table>
     </div>
 </div>
