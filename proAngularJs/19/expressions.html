@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('defaultCtrl',function ($scope) {
+            $scope.price="100.35";
+        });
+        app.directive('evalExpression',function ($parse) {
+            return function(scope,element,attrs){
+                scope.$watch(attrs['evalExpression'],function (newValue) {
+                    try {
+                        var expressionFn=$parse(scope.expr);
+                        var result=expressionFn(scope);
+                        if(result==undefined){
+                            result="No result";
+                        }
+                    }catch (err){
+                        result="Cannot evaluate expression";
+                    }
+                    element.text(result);
+                })
+            }
+        })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+  <div class="panel panel-default">
+      <p><input type="text" class="form-control" ng-model="expr"></p>
+      <div>
+          Result: <span eval-expression="expr"></span>
+      </div>
+  </div>
+</body>
+</html>

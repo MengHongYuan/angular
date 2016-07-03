@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('defaultCtrl',function($scope,$location){
+            $scope.$on("$locationChangeSuccess",function(event,newUrl){
+                $scope.url=newUrl;
+            });
+            $scope.setUrl=function(component){
+                switch (component){
+                    case "reset":
+                        $location.path("");
+                        $location.hash("");
+                        $location.search("");
+                        break;
+                    case "path":
+                        $location.path('/cities/london');
+                        break;
+                    case "hash":
+                        $location.hash("north");
+                        break;
+                    case "search":
+                        $location.search("select","hotels");
+                        break;
+                    case "url":
+                        $location.url('/cities/london?select=hotels#north');
+                        break;
+                }
+            }
+        })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+  <div class="panel panel-default">
+      <h4 class="panel-heading">URL</h4>
+      <div class="panel-body">
+          <p>The URL is:{{url}}</p>
+          <div class="btn-group">
+              <button class="btn btn-default" ng-click="setUrl('reset')">Reset</button>
+              <button class="btn btn-default" ng-click="setUrl('path')">Path</button>
+              <button class="btn btn-default" ng-click="setUrl('hash')">Hash</button>
+              <button class="btn btn-default" ng-click="setUrl('search')">Search</button>
+              <button class="btn btn-default" ng-click="setUrl('url')">URL</button>
+          </div>
+      </div>
+  </div>
+</body>
+</html>

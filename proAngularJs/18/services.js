@@ -19,14 +19,14 @@ errorLogger.prototype.msgType='Error';
 angular.module('customServices',[]).service('logService',debugLogger).service('errorService',errorLogger);*/
 
 
-angular.module('customServices',[]).factory('logService',function(){
+/*angular.module('customServices',[]).factory('logService',function(){
     var messageCount=0;
     return {
         log:function(msg){
             console.log('(LOG+'+messageCount++ +')'+msg);
         }
     }
-});
+});*/
 
 angular.module('customService',[]).provider('logService',function(){
     var counter=true,debug=true;
@@ -47,12 +47,12 @@ angular.module('customService',[]).provider('logService',function(){
                 return debug;
             }
         },
-        $get:function(){
+        $get:function($log){
             return {
                 messageCount:0,
                 log:function(msg){
                     if(debug){
-                        console.log("(LOG"+(counter?"+"+this.messageCount++ +")":")")+msg);
+                        $log.log("(LOG"+(counter?"+"+this.messageCount++ +")":")")+msg);
                     }
                 }
             }

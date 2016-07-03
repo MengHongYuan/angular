@@ -9,7 +9,7 @@
     <script src="directive.js"></script>
     <script src="services.js"></script>
     <script>
-        var app=angular.module('myApp',['customDirectives','customServices']);
+        var app=angular.module('myApp',['customDirectives','customService']);
         app.controller('defaultCtrl',function($scope,logService){
             $scope.data={
                 cities:["London","New York","Paris"],

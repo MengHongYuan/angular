@@ -1,7 +1,7 @@
 /**
  * Created by menghy on 16/6/30.
  */
-angular.module('customDirectives',['customServices']).directive('triButton',function(logService){
+angular.module('customDirectives',['customService']).directive('triButton',function(logService){
     return {
         scope:{counter:'=counter'},
         link:function(scope,element,attrs){

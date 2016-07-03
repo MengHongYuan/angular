@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+
+    <script>
+        var app=angular.module('myApp',[]);
+        app.config(function($anchorScrollProvider){
+            $anchorScrollProvider.disableAutoScrolling();
+        });
+        app.controller('defaultCtrl',function($scope,$location,$anchorScroll){
+            $scope.itemCount=50;
+            $scope.items=[];
+            for(var i=0;i<$scope.itemCount;i++){
+                $scope.items[i]="Item"+i;
+            }
+            $scope.show=function(id){
+                $location.hash(id);
+                if(id=='bottom'){
+                    $anchorScroll();
+                }
+            }
+        })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+  <div class="panel panel-default">
+      <h4 class="panel-heading">URL</h4>
+      <div class="panel-body">
+          <p>This is the top</p>
+          <button class="btn btn-default" ng-click="show('bottom')">Go to Bottom</button>
+          <ul>
+              <li ng-repeat="item in items">{{item}}</li>
+          </ul>
+          <p>This is the bottom</p>
+          <button class="btn btn-default" ng-click="show('top')">Go to Top</button>
+      </div>
+  </div>
+</body>
+</html>
