@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>hello,Angular</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <script src="../../js/angular.min.js"></script>
+
+    <script>
+        var app=angular.module('myApp',[]);
+        app.controller('defaultCtrl',function ($scope,$http) {
+            $scope.loadData=function(){
+                $http.get('product.xml').then(function (response) {
+                    /*console.log("Status:"+response.status);
+                    console.log("Type:"+response.headers('content-type'));
+                    console.log("length:"+response.headers('content-length'));
+                    $scope.products=response.data;*/
+                    $scope.products=[];
+                    var productElems=angular.element(response.data.trim()).find('product');
+                    for(var i=0;i<productElems.length;i++){
+                        var product=productElems.eq(i);
+                        $scope.products.push({
+                            name:product.attr("name"),
+                            category:product.attr("category"),
+                            price:product.attr("price")
+                        })
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+  <div class="panel panel-default">
+      <div class="panel-body">
+          <table class="table table-bordered">
+              <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                    </tr>
+              </thead>
+              <tbody>
+                    <tr ng-hide="products.length">
+                        <td colspan="3">No Data!</td>
+                    </tr>
+                    <tr ng-repeat="item in products">
+                        <td>{{item.name}}</td>
+                        <td>{{item.category}}</td>
+                        <td>{{item.price | currency}}</td>
+                    </tr>
+              </tbody>
+          </table>
+          <p>
+              <button class="btn btn-primary" ng-click="loadData()">Load Data</button>
+          </p>
+      </div>
+  </div>
+</body>
+</html>
