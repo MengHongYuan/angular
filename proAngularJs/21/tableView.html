@@ -15,7 +15,8 @@
             <td>{{item.price}}</td>
             <td>
                 <button class="btn btn-xs btn-primary" ng-click="deleteProduct(item)">Delete</button>
-                <button class="btn btn-xs btn-primary" ng-click="editOrCreateProduct(item)">Edit</button>
+                <button class="btn btn-xs btn-primary" ng-click="editProduct(item)">Edit</button>
+                <increment item="item" property-name="price" restfu="true" method-name="$save"></increment>
             </td>
         </tr>
         </tbody>
